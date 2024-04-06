@@ -114,30 +114,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card bg-light">
-                <div class="card-body">
-                    <i class="fas fa-file-alt icon"></i>
-                    <span class="card-title">Articles</span>
-                    <p class="card-text">40</p>
-                </div>
-            </div>
-        </div>
+
     </div>
 
-    <!-- Quick Links -->
-    <div class="row">
-        <div class="col-lg-4">
-            <h4>Quick Links</h4>
-            <ul class="list-unstyled">
-                <li><a href="user_management.php">Manage Users</a></li>
-                <li><a href="property_management.php">Manage Properties</a></li>
-                <li><a href="reservation_management.php">Manage Reservations</a></li>
-                <li><a href="content_management.php">Manage Content</a></li>
-            </ul>
-        </div>
-        <!-- Consider adding more sections here as needed -->
-    </div>
+
 </div>
 
 <!-- Footer -->

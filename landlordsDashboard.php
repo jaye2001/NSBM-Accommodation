@@ -26,10 +26,10 @@
                         <a class="nav-link" href="landlord_dashboard.php">Dashboard <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="manage_properties.php">Manage Properties</a>
+                        <a class="nav-link" href="landlordAddProperty.php">Add Properties</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="reservation_requests.php">Reservation Requests</a>
+                        <a class="nav-link" href="reservation_requests.php">Manage Properties</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="logout.php">Logout</a>

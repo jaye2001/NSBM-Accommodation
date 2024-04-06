@@ -43,7 +43,7 @@
     <div class="form-section">
         <div class="container">
             <h2>Add New Property</h2>
-            <form>
+            <form action="php/landlordAddProperty.php" method="POST">
                 <!-- Property Title -->
                 <div class="form-group">
                     <label for="propertyTitle">Title</label>
@@ -62,7 +62,12 @@
                 <!-- Property Location -->
                 <div class="form-group">
                     <label for="propertyLocation">Location</label>
-                    <input type="text" class="form-control" id="propertyLocation" placeholder="Enter location">
+                    <input type="hidden" id="lat" name="lat">
+                     <input type="hidden" id="lng" name="lng">
+
+                    <!-- Map Container -->
+                    <div id="map"></div>
+
                 </div>
                 <!-- Property Images -->
                 <div class="form-group">
@@ -117,6 +122,8 @@
     </footer>
 </div>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly" async></script>
+<script src="js/landlordMap.js"></script>
 <!-- Bootstrap and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
