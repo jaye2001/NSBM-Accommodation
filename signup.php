@@ -26,19 +26,26 @@
                 <option value="landlord">Landlord</option>
                 <option value="warden">Warden</option>
                 <option value="student">Student</option>
+
             </select>
         </div>
         <div class="form-group">
             <label for="userName">Name</label>
-            <input type="text" class="form-control" id="userName" name="userName" required>
+            <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter Name" required>
         </div>
         <div class="form-group">
             <label for="userEmail">Email</label>
-            <input type="email" class="form-control" id="userEmail" name="userEmail" required>
+            <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="Enter Email" required>
         </div>
+        
+        <div class="form-group">
+             <label for="phoneNumber">Phone Number</label>
+            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter phone number" required>
+        </div>
+
         <div class="form-group">
             <label for="userPassword">Password</label>
-            <input type="password" class="form-control" id="userPassword" name="userPassword" required>
+            <input type="password" class="form-control" id="userPassword" name="userPassword" placeholder="Enter Password" required>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
     </form>

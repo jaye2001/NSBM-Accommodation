@@ -17,9 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = filter_input(INPUT_POST, 'userName', FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST, 'userEmail', FILTER_SANITIZE_EMAIL);
     $password = filter_input(INPUT_POST, 'userPassword', FILTER_SANITIZE_STRING);
+    $phone = filter_input(INPUT_POST, 'phoneNumber', FILTER_SANITIZE_STRING);
     
     // Validate inputs (basic validation)
-    if (!$userType || !$name || !$email || !$password) {
+    if (!$userType || !$name || !$email || !$password || !$phone)  {
         // Handle error - in production, redirect or provide a meaningful error message
         die('Please fill in all required fields.');
     }
@@ -29,13 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     try {
         // Prepare SQL statement to insert a new user
-        $stmt = $pdo->prepare("INSERT INTO users (user_type, name, email, password) VALUES (:userType, :name, :email, :password)");
+        $stmt = $pdo->prepare("INSERT INTO users (user_type, name, email, password, phone) VALUES (:userType, :name, :email, :password, :phone)");
         
         // Bind parameters
         $stmt->bindParam(':userType', $userType);
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $passwordHash);
+        $stmt->bindParam(':phone', $phone);
         
         // Execute the statement
         $stmt->execute();

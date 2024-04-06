@@ -4,7 +4,7 @@ class DBConnection {
     private $host = 'localhost';
     private $dbname = 'nsbm_accommodation';
     private $username = 'root';
-    private $password = 'mysql8811%%';
+    private $password = '';
     private $conn;
 
     public function connect() {
