@@ -35,34 +35,42 @@
         </div>
         </div>
     </nav>
-    <br>
-    <div class="container">
-    <h2>User Management</h2>
-
-    <!-- Sorting and Searching Form -->
-    <div class="row mb-4">
-        <div class="col">
-            <select class="form-control" id="userTypeFilter">
-                <option value="">Select User Type</option>
-                <option value="landlord">Landlord</option>
-                <option value="warden">Warden</option>
-                <option value="student">Student</option>
-            </select>
-        </div>
-        <div class="col">
-            <input type="text" class="form-control" id="userNameSearch" placeholder="Search by name">
-        </div>
-        <div class="col-auto">
-            <button type="button" class="btn btn-primary">Search</button>
-        </div>
-    </div>
-
-    <!-- User List -->
-    <!-- ...existing user list table code... -->
-</div>
 
 <br>
 <div class="container">
+    <h2>User Management</h2>
+    <br>
+
+    <!-- Add User Form -->
+    <div class="add-user-section">
+        <h4>Add New User</h4>
+        <form>
+            <div class="form-group">
+                <label for="userType">User Type</label>
+                <select class="form-control" id="userType">
+                    <option value="landlord">Landlord</option>
+                    <option value="warden">Warden</option>
+                    <option value="student">Student</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="userName">Name</label>
+                <input type="text" class="form-control" id="userName" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label for="userEmail">Email</label>
+                <input type="email" class="form-control" id="userEmail" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="userEmail">Phone number</label>
+                <input type="text" class="form-control" id="phonenumber" placeholder="Enter phone number">
+            </div>
+            <!-- Additional fields as needed -->
+            <button type="submit" class="btn btn-primary">Add User</button>
+        </form>
+    </div>
+
+    <br><br>
     <!-- User List -->
     <div class="user-list-section">
         <h4>User List</h4>
@@ -95,10 +103,7 @@
             </table>
         </div>
     </div>
-
 </div>
-
-
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
