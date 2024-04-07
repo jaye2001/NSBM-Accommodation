@@ -1,34 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" style="height: 100%;">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NSBM Green University Accommodation Finder</title>
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
-    <link href="css/main.css" rel="stylesheet">
-
-
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css"
+    />
     <style>
- .login-icon {
-    position: absolute;
-    top: 16px; /* Adjust the value to place it at the cursor location */
-    right: 375px; /* Adjust the value to place it at the cursor location */
-    fill: #ffffff; /* Change the color if needed */
-    display: inline-block;
-    width: 25px; /* New size */
-    height: 25px; /* New size */
-  }
+      .footer {
+        background-color: #343a40;
+        color: white;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+      .container-custom {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
 
-  .login-icon svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-    fill: #ffffff;
-  }
-  
-</style>
-<?php
+  <?php
 include_once 'php/utils/db.php';
 include_once 'php/utils/constants.php';
 
@@ -44,19 +40,34 @@ try {
     $db_obj->connect();
     $pdo = $db_obj->get_conn();
     
-    $stmt = $pdo->prepare("SELECT * FROM articles ORDER BY created_at DESC LIMIT 3");
+    $stmt = $pdo->prepare("SELECT * FROM articles ORDER BY created_at DESC");
     $stmt->execute();
     // Fetch all rows as an associative array
     $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (isset($_GET['param1']) && isset($_GET['param2'])) {
+      $param1 = $_GET['param1'];
+      $param2 = $_GET['param2'];
+      
+      if($param1 == "delete"){
+        $stmt = $pdo->prepare("DELETE FROM articles WHERE article_id = :property_id");
+            $stmt->bindParam(':property_id', $param2);
+        $stmt->execute();
+        header("Location: Articleviewpage.php");
+        exit;   
+      }
+
+    }
+    
 } catch (PDOException $e) {
     die("Could not connect to the database $dbname :" . $e->getMessage());
 }
-    ?>
-</head>
-<body>
+$rowCount = 0;
 
-<div class="flex-wrapper">
-    <!-- Navigation Bar -->
+if ($type == "admin") {
+?>
+    
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">NSBM Accommodations</a>
@@ -66,7 +77,32 @@ try {
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto">
                     <a class="nav-item nav-link active" href="<?php echo $web_constants->get_link('home'); ?>">Home</a>
-                    <a class="nav-item nav-link" href="StudentDashboard.php">Student Dashboard</a>
+                    <a class="nav-item nav-link" href="search.php">Find Accommodation</a>
+                    <a class="nav-item nav-link" href="Articleviewpage.php">Articles</a>
+                    <a class="nav-item nav-link" href="AboutUs.php">About</a>
+                    <a class="nav-item nav-link" href="ContactUs.php">Contact</a>
+                    <a href="auth/login.php" class="login-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                        </svg>
+                    </a>
+                    <a class="nav-item nav-link" href="auth/login.php">&nbsp &nbsp Sign In</a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+<?php    } 
+elseif ($type == "student") {?>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">NSBM Accommodations</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ml-auto">
+                    <a class="nav-item nav-link active" href="<?php echo $web_constants->get_link('home'); ?>">Home</a>
                     <a class="nav-item nav-link" href="StudentView.php">Find Accommodation</a>
                     <a class="nav-item nav-link" href="Articleviewpage.php">Articles</a>
                     <a class="nav-item nav-link" href="AboutUs.php">About</a>
@@ -87,50 +123,38 @@ try {
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="jumbotron jumbotron-fluid" style="background-image: url('images/Hostel-1.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; color: white; min-height: 900px;">
-        <div class="container text-center">
-            <br><br><br>
-            <h1 class="display-4">Welcome to NSBM Accommodation Finder</h1>
-            <h2 class="lead">Helping you find the perfect place to stay near campus.</h3> <br>
-            <a href="StudentView.php" class="btn btn-hero">Start Searching</a>
-        </div>
-    </div>
+<?php } ?>
 
-    <!-- Main Content -->
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Why Choose Us?</h5>
-                        <p class="card-text">Find accommodations tailored to your needs, close to NSBM Green University, with features and amenities that make student life easier and more enjoyable.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">How It Works</h5>
-                        <p class="card-text">Search listings, view detailed information, and reserve your accommodation—all in a few clicks. It's that simple!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Trusted Landlords</h5>
-                        <p class="card-text">All listings are verified and approved by the warden, ensuring you find a safe and reliable place to stay.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
+      function showempty(){
+        document.getElementById("empty").style.display = "block";
+      }
+
+      function myFunction() {
+        var para = document.getElementsByClassName("card-text")[0];
+          var text = para.innerHTML;
+          para.innerHTML = "";
+          var words = text.split(" ");
+          for (i = 0; i < 30; i++) {
+            para.innerHTML += words[i] + " ";
+          }
+          para.innerHTML += "...";
+        }
+    </script>
     <div class="d-flex justify-content-center" style = "margin-top: 50px;">
         <h1>ARTICLES</h1>
       </div>
+      <?php if ($type == "admin") { ?>
+    <div class="d-flex justify-content-center" style = "margin-top: 50px;">
+    <a href="AdminAddArticle.php"><button class='btn btn-info btn-sm' style = 'margin-bottom:20px;' data-toggle='modal' data-target='#".$modalId."'>ADD NEW ARTICLE</button></a>
+      </div>
+      <?php } ?>
+      
     <div style="margin: 100px; margin-top:20px;" id = "allcard" class="d-flex justify-content-center">
-    <div class="card-deck container d-flex justify-content-center" >
+      <div id = "empty" style = "display:none;">
+        <h1>NO ARTICLES TO SHOW PLEASE LOOK AFTER WHILE</h1>
+      </div>
+      <div class="card-deck container d-flex justify-content-center" >
         <?php 
         if (count($properties) > 0) {
           foreach($properties as $accommodation) {
@@ -200,28 +224,23 @@ try {
         </div>
         <?php
                     }
-                } 
-
-           
+                } else {
+                    echo "<script> showempty() </script>";
+                }
             ?>
-            <div style="display: flex; justify-content: flex-start; margin-top: 20px;">
-            <a href="Articleviewpage.php"><button type="button" class="btn btn-primary btn-sm" >View more</button></a>
-            
-        </div>
       </div>
-
-            </div>
-
-    <!-- Footer -->
-    <footer class="footer bg-dark text-white pt-4 pb-4">
-        <div class="container text-center">
-            <p>© 2024 NSBM Green University Accommodation Finder. All rights reserved.</p>
-        </div>
+    </div>
+    <footer class="footer mt-4 py-3">
+      <div class="container text-center">
+        <p>
+          © 2024 NSBM Green University Accommodation Finder. All rights
+          reserved.
+        </p>
+      </div>
     </footer>
-</div>
+    
 
-<!-- Bootstrap and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

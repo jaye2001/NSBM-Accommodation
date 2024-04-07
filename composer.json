@@ -1,0 +1,11 @@
+{
+    "name": "d3vlin3/nsbm_accomadation",
+    "autoload": {
+        "psr-4": {
+            "D3vlin3\\NsbmAccomadation\\": "src/"
+        }
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}
