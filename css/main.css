@@ -1,0 +1,94 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+.flex-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.footer {
+    margin-top: auto;
+}
+
+
+.card {
+    background-color: #c9cecb; /* Light grey background */
+    border: none; /* Remove border */
+}
+.jumbotron {
+    padding-top: 10rem; /* Increase top padding */
+    padding-bottom: 10rem; /* Increase bottom padding */
+    margin-bottom: 0; /* Remove default margin-bottom */
+}
+
+.btn-hero {
+    background-color: rgb(160, 153, 153); /* Red background for the button */
+    color: #ffffff; /* White text */
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    text-transform: uppercase;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-hero:hover {
+    background-color: #9aa2aa; /* Darker red on hover */
+    text-decoration: none; /* Remove underline on hover */
+}
+
+
+.ads-section {
+    padding: 40px 0;
+}
+
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,.75);
+}
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(255,255,255);
+}
+
+.form-section, .properties-section {
+    padding: 40px 0;
+}
+
+.dashboard-section {
+    padding: 40px 0;
+}
+.card {
+    margin-bottom: 20px;
+}
+
+.requests-section {
+    padding: 40px 0;
+}
+.table-responsive {
+    margin-top: 20px;
+}
+
+.search-section {
+    padding: 40px 0;
+}
+.results-section {
+    padding-bottom: 20px;
+}
+
+
+.details-section {
+    padding: 40px 0;
+}
+.image-gallery {
+    margin-bottom: 20px;
+}
+#map {
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+
+.table-responsive {
+    margin-top: 20px;
+}
