@@ -27,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['userEmail']) && !empt
         $is_valid_user_type = TRUE;
         switch ($user['user_type']) {
             case 'student':
-                header('Location: '.$web_constants->get_link('student_search'));
+                header('Location: '.$web_constants->get_link('home'));
                 break;
             case 'warden':
-                header('Location: '.$web_constants->get_link('warden_ad_view'));
+                header('Location: '.$web_constants->get_link('warden_dashboard'));
                 break;
             case 'landlord':
                 header('Location: '.$web_constants->get_link('landlord_dashboard'));
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['userEmail']) && !empt
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="index.php"> &nbsp &nbsp   NSBM Accommodations Finder &nbsp</a>
+        <a class="navbar-brand" href="<?php echo $web_constants->get_link('home'); ?>"> &nbsp &nbsp   NSBM Accommodations Finder &nbsp</a>
     </div>
 </nav>
 <br><br><br>

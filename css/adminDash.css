@@ -1,0 +1,53 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #f4f7fa;
+  margin-top: 0;
+}
+.navbar {
+  background-color: #333;
+  padding: 0.8rem 1rem;
+}
+.navbar .navbar-brand {
+  color: #fff;
+}
+.navbar .navbar-brand:hover {
+  color: #ddd;
+}
+.content {
+  padding: 2rem;
+}
+.card {
+  margin-bottom: 1rem;
+}
+.card-title {
+  margin-bottom: 0.5rem;
+}
+.card-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.icon {
+  font-size: 2.5rem;
+  margin-right: 1rem;
+}
+.fa-users {
+  color: #f0ad4e;
+}
+.fa-building {
+  color: #5cb85c;
+}
+.fa-calendar-alt {
+  color: #d9534f;
+}
+.fa-file-alt {
+  color: #5bc0de;
+}
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

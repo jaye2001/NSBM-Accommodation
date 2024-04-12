@@ -21,7 +21,7 @@
                 <div class="navbar-nav ml-auto">
                     <a class="nav-item nav-link" href="dashboard_warden.php">Dashboard</a>
                     <a class="nav-item nav-link active" href="advertisement_overview.php">Advertisement Overview <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="logout.php">Logout</a>
+                    <a class="nav-item nav-link" href="<?php echo $web_constants->get_link('logout'); ?>">Logout</a>
                 </div>
             </div>
         </div>

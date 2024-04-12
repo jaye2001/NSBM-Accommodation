@@ -14,7 +14,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'warden'){
         $db_obj->connect();
         $pdo = $db_obj->get_conn();
         
-        $stmt = $pdo->prepare("SELECT * FROM properties WHERE status='approved'");
+        $stmt = $pdo->prepare("SELECT * FROM properties WHERE status='rejected'");
         $stmt->execute();
         // Fetch all rows as an associative array
         $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -34,7 +34,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'warden'){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warden Approved - NSBM Accommodation Finder</title>
+    <title>Warden Rejected - NSBM Accommodation Finder</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
 </head>
 <body>
@@ -73,7 +73,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'warden'){
 
 
     <div class="container mt-5">
-    <h2>Warden Ad Approved List</h2>
+    <h2>Warden Ad Rejections</h2>
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>
@@ -92,12 +92,13 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'warden'){
                         // Unique ID for each modal for linking
                         $modalId = "viewModal" . $accommodation['property_id'];
                         echo "<tr>";
-                        echo "<th scope='row'>".htmlspecialchars($accommodation['property_id'])."</th>";
+                        echo "<th scope='row'>" . htmlspecialchars($accommodation['property_id']) . "</th>";
                         echo "<td>" . htmlspecialchars($accommodation['title']) . "</td>";
                         echo "<td>" . htmlspecialchars($accommodation['location']) . "</td>";
                         echo "<td>" . htmlspecialchars($accommodation['price']) . "</td>";
                         echo "<td>" . htmlspecialchars($accommodation['created_at']) . "</td>";
                         echo "<td>";
+                        // This is the 'View' button at line 83 that will now trigger the modal
                         echo "<button class='btn btn-info btn-sm' data-toggle='modal' data-target='#".$modalId."'>View</button> ";
                         echo "</td>";
                         echo "</tr>";

@@ -5,19 +5,21 @@ include_once 'php/utils/db.php';
 session_start(); // Start the session.
 
 $web_constants = new Constants();
-$properties = []; // Initialize an empty array to hold property data
+$reservations = []; // Initialize an empty array to hold property data
 
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'student'){
     // Create a connection to the database
+    $student_id = $_SESSION['user_id'];
     try {
         $db_obj = new DBConnection();
         $db_obj->connect();
         $pdo = $db_obj->get_conn();
         
-        $stmt = $pdo->prepare("SELECT * FROM properties WHERE status='approved'");
+        $stmt = $pdo->prepare("SELECT r.*, p.*, r.status AS request_status, r.created_at AS request_date FROM reservations r LEFT JOIN properties p ON r.property_id = p.property_id WHERE r.student_id = :user_id ORDER BY r.created_at DESC");
+        $stmt->bindParam(':user_id', $student_id);        
         $stmt->execute();
         // Fetch all rows as an associative array
-        $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
     } catch (PDOException $e) {
         die("Could not connect to the database $dbname :" . $e->getMessage());
@@ -48,7 +50,11 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'student'){
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+
+                <li class="nav-item">
+                    <a class="nav-link " href="<?php echo $web_constants->get_link('home'); ?>">Home</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="StudentDashboard.php">Student Dashboard <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
@@ -61,13 +67,12 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'student'){
                     <a class="nav-link" href="account_settings.php">Account Settings</a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="logout.php">Logout</a>
+                    <a class="nav-link" href="<?php echo $web_constants->get_link('logout'); ?>">Logout</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-
 
     <div class="container mt-5">
     <h2>Student Reservation</h2>
@@ -84,6 +89,25 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'student'){
 
             </tr>
         </thead>
+        <tbody>
+        <?php
+        if (!empty($reservations)){
+            foreach ($reservations as $reservation) {
+        ?>
+            <tr>
+                <th><?php echo $reservation['reservation_id']; ?></th>
+                <td><?php echo $reservation['title']; ?></td>
+                <td><a href="<?php echo $reservation['location']; ?>">Show on map</a></td>
+                <td><?php echo $reservation['price']; ?></td>
+                <td><?php echo $reservation['request_date']; ?></td>
+                <td><?php echo $reservation['request_status']; ?></td>
+                <td><?php echo htmlspecialchars(substr($reservation['description'], 0, 100)); ?></td>
+            </tr>
+        <?php
+            }
+        }
+        ?>
+        </tbody>
     </table>
 </div>
 

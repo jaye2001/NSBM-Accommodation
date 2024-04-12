@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = filter_input(INPUT_POST, 'userPassword', FILTER_SANITIZE_STRING);
     $phone = filter_input(INPUT_POST, 'phoneNumber', FILTER_SANITIZE_STRING);
     
+    
     // Validate inputs (basic validation)
     if (!$userType || !$name || !$email || !$password || !$phone)  {
         // Handle error - in production, redirect or provide a meaningful error message
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $is_valid_name = name_validator($name);
     $is_valid_email = email_validator($email);
-    $is_valid_phone = phone_validator($phone);
+    $is_valid_phone = phone_number_validator($phone);
     
     if (!$is_valid_name || !$is_valid_email || !$is_valid_phone) {
         
@@ -73,9 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
  
     <link href="css/signup.css" rel="stylesheet">
     <?php 
-    if ($is_valid_email)$error = "Invalid email address";
-    else if ($is_valid_name)$error = "Invalid name";
-    else if ($is_valid_phone)$error = "Invalid phone number";
+    if (!$is_valid_email)$error = "Invalid email address";
+    else if (!$is_valid_name)$error = "Invalid name";
+    else if (!$is_valid_phone)$error = "Invalid phone number";
 
     if (isset($error)) echo "<script>alert('".$error."');</script>"; 
     ?>
@@ -84,13 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="index.php"> &nbsp &nbsp   NSBM Accommodations Finder &nbsp</a>
+        <a class="navbar-brand" href="<?php echo $web_constants->get_link('home'); ?>"> &nbsp &nbsp   NSBM Accommodations Finder &nbsp</a>
     </div>
 </nav>
 <br><br><br>
 <div class="container shadow mt-5">
     <h2 class="sign-up-title">Sign Up</h2>
-    <form action="php/signup_process.php" method="POST">
+    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
         <div class="form-group">
             <label for="userType">I am a:</label>
             <select class="form-control" id="userType" name="userType" required>
